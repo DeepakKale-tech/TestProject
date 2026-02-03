@@ -40,8 +40,10 @@ body {
 }
 </style>
 </head>
-<body class="bg-light d-flex align-items-center" style="min-height:100vh;">
+<body class="bg-light">
 <jsp:include page="success.jsp"/>
+<jsp:include page="header.jsp"/>
+<div class="d-flex align-items-center" style="min-height:100vh;">
 <div class="container">
 	<div class="row justify-content-center">
 		<div class="col-12 col-sm-10 col-md-6 col-lg-5">
@@ -97,6 +99,7 @@ String error   = (String) request.getAttribute("error");
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <script>
 document.querySelector("form").addEventListener("submit", function (e) {
@@ -165,6 +168,7 @@ function togglePassword() {
   p.type = p.type === "password" ? "text" : "password";
 }
 </script>
+<jsp:include page="footer.jsp"/>
 </body>
 <script src="js/bootstrap.bundle.min.js"></script>
 </html>

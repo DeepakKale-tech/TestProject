@@ -58,9 +58,9 @@ body {
 </style>
 </head>
 <body class="bg-light">
-<jsp:include page="success.jsp"/>
 <jsp:include page="header.jsp"/>
-<div class="d-flex align-items-center" style="min-height:100vh;">
+<jsp:include page="success.jsp"/>
+<div class=" d-flex align-items-center" style="min-height:100vh;">
 <div class="container mt-4">
 	<div class="row justify-content-center">
 		<div class="col-12 col-sm-10 col-md-6 col-lg-4">
@@ -186,7 +186,6 @@ window.addEventListener("pageshow", function () {
     }
 });
 </script>
-<jsp:include page="footer.jsp"/>
 </body>
 <script>
 function togglePassword() {
