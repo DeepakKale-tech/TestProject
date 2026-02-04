@@ -31,8 +31,7 @@ public class ShopLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		PrintWriter pw = response.getWriter();
+		
 		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		response.setHeader("Pragma", "no-cache");
@@ -50,7 +49,9 @@ public class ShopLogin extends HttpServlet {
 	                
 	                HttpSession session = request.getSession();
 		        	session.setAttribute("successMsg", "Welcome back, Admin!");
-		        	response.sendRedirect("index2.jsp");
+		        	response.sendRedirect("adminLogin.jsp");
+		        	
+		        	
 	         }else
 	         {
 	        	 request.setAttribute("error", "Invalid username or password");

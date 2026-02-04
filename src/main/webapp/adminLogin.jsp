@@ -8,6 +8,32 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 <style>
+#successPopup {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#successPopup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 280px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #38ef7d, #11998e);
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#successPopup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 #loginBtn {
     border-radius: 14px;
     background: linear-gradient(135deg, #667eea, #764ba2);
@@ -58,7 +84,9 @@ body {
 </style>
 </head>
 <body class="bg-light">
-<jsp:include page="success.jsp"/>
+<div id="successPopup" style="display:none">
+    ✅ <span id="successText"></span>
+</div>
 <jsp:include page="header.jsp"/>
 <div class="d-flex align-items-center" style="min-height:100vh;">
 <div class="container mt-4">
@@ -78,6 +106,18 @@ if (error != null) {
 <%
 }
 %>
+<%
+String success = (String) session.getAttribute("successMsg");
+if (success != null) {
+    session.removeAttribute("successMsg");
+%>
+<script>
+sessionStorage.setItem("successMsg", "<%= success %>");
+</script>
+<%
+}
+%>
+
 					<form action="ShopLogin" method="post" class="needs-validation" novalidate>
 						<div class="input-group mt-3">
     						<span class="input-group-text">
@@ -187,6 +227,34 @@ window.addEventListener("pageshow", function () {
 });
 </script>
 <jsp:include page="footer.jsp"/>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const successMsg = sessionStorage.getItem("successMsg");
+    if (!successMsg) return;
+
+    const popup = document.getElementById("successPopup");
+    const text = document.getElementById("successText");
+
+    text.textContent = successMsg;
+    popup.style.display = "block";
+
+    requestAnimationFrame(() => popup.classList.add("show"));
+
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove("show");
+
+        // Go to next page after animation
+        setTimeout(() => {
+            sessionStorage.removeItem("successMsg");
+            window.location.href = "index2.jsp"; // 🔁 change page here
+        }, 100);
+
+    }, 900);
+});
+</script>
+
 </body>
 <script>
 function togglePassword() {

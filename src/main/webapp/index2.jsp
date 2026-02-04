@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<jsp:include page="success.jsp"/>
 <div class="container mt-5">
     <h1 class="text-center mb-4">Welcome to Dashboard2</h1>
     <p class="text-center">You are logged in as a Therapist.</p>

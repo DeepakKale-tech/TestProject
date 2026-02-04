@@ -47,9 +47,7 @@ public class TherapistLoginServlet extends HttpServlet {
 
 			    HttpSession session = request.getSession();
 			    session.setAttribute("successMsg", "Login successful!, Welcome Therapist");
-			    session.setAttribute("therapist", t);
-
-			    response.sendRedirect("index2.jsp");
+			    response.sendRedirect("therapistLogin.jsp");
 			    return;
 			} else {
 
