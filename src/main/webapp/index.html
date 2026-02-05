@@ -3,9 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/popup.css" rel="stylesheet">
 </head>
 <body>
 <h1>Welcome</h1>
-<jsp:include page="success.jsp" />
+<script>
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    const flash = params.get("flash");
+
+    if (!flash) return;
+
+    if (flash === "register")
+        localStorage.setItem("flashMsg", "Registration successful ✅ Please login");
+    if (flash === "Adminregister")
+        localStorage.setItem("flashMsg", "Registration successful ✅ Please login Admin");
+
+    if (flash === "login")
+        localStorage.setItem("flashMsg", "Login successful 🎉 Welcome!");
+    if (flash === "Adminlogin")
+        localStorage.setItem("flashMsg", "Login successful 🎉 Welcome Back Admin!");
+
+})();
+</script>
+
+<script src="js/flashPopup.js"></script>
 </body>
 </html>

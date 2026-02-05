@@ -1,0 +1,21 @@
+@charset "UTF-8";
+.flash-popup{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg,#00c853,#009688);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+    opacity: 0;
+    transform: translateY(-15px);
+    transition: .35s;
+    z-index: 9999;
+}
+
+.flash-popup.show{
+    opacity: 1;
+    transform: translateY(0);
+}

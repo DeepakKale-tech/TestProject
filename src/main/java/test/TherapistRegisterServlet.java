@@ -50,9 +50,8 @@ public class TherapistRegisterServlet extends HttpServlet {
 		if(status > 0)
 		{
 			HttpSession session = request.getSession();
-			session.setAttribute("successMsg", "Registration successful! 🎉 Please login");
-			response.sendRedirect("therapistLogin.jsp");
-			return;
+			
+			response.sendRedirect("therapistLogin.jsp?flash=register");
 		}
 		else
 		{

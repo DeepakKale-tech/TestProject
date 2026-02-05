@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="test.FlashMessage" %>
+
+<%
+String flash = FlashMessage.get(session);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +13,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 <style>
+
+
 /* Toast container styling */
 .toast-container {
     position: fixed;
@@ -19,12 +26,34 @@
 </head>
 <body>
 
+
 <%
     // Read success message from session
     String successMsg = (String) session.getAttribute("loginSuccess");
     if (successMsg != null) {
         session.removeAttribute("loginSuccess"); // Remove after reading
 %>
+<div id="flashPopup" class="flash-popup"></div>
+
+<script>
+window.onload = function () {
+
+    let msg = `<%= flash == null ? "" : flash %>`;
+
+    if (msg.trim() !== "") {
+        const popup = document.getElementById("flashPopup");
+        popup.innerText = msg;
+        popup.style.display = "block";
+
+        setTimeout(() => {
+            popup.style.opacity = "0";
+            setTimeout(()=> popup.remove(), 400);
+        }, 2500);
+    }
+};
+
+</script>
+
 <div class="toast-container">
     <div class="toast show text-bg-success shadow rounded-3" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">

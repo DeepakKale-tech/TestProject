@@ -1,38 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Admin Login Page</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/popup.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 <style>
-#successPopup {
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-#successPopup {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    min-width: 280px;
-    padding: 14px 18px;
-    background: linear-gradient(135deg, #38ef7d, #11998e);
-    color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    font-weight: 500;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-#successPopup.show {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 #loginBtn {
     border-radius: 14px;
@@ -84,10 +62,8 @@ body {
 </style>
 </head>
 <body class="bg-light">
-<div id="successPopup" style="display:none">
-    ✅ <span id="successText"></span>
-</div>
-<jsp:include page="header.jsp"/>
+<div id="popup" class="popup"></div>
+
 <div class="d-flex align-items-center" style="min-height:100vh;">
 <div class="container mt-4">
 	<div class="row justify-content-center">
@@ -103,17 +79,6 @@ if (error != null) {
     <i class="bi bi-exclamation-triangle-fill me-2"></i>
     <%= error %>
 </div>
-<%
-}
-%>
-<%
-String success = (String) session.getAttribute("successMsg");
-if (success != null) {
-    session.removeAttribute("successMsg");
-%>
-<script>
-sessionStorage.setItem("successMsg", "<%= success %>");
-</script>
 <%
 }
 %>
@@ -164,6 +129,28 @@ sessionStorage.setItem("successMsg", "<%= success %>");
 	</div>
 </div>
 </div>
+<script>
+(function () {
+    const params = new URLSearchParams(window.location.search);
+    const flash = params.get("flash");
+
+    if (!flash) return;
+
+    if (flash === "register")
+        localStorage.setItem("flashMsg", "Registration successful ✅ Please login");
+    if (flash === "Adminregister")
+        localStorage.setItem("flashMsg", "Registration successful ✅ Please login Admin");
+
+    if (flash === "login")
+        localStorage.setItem("flashMsg", "Login successful 🎉 Welcome!");
+    if (flash === "Adminlogin")
+        localStorage.setItem("flashMsg", "Login successful 🎉 Welcome Back Admin!");
+
+})();
+</script>
+
+<script src="js/flashPopup.js"></script>
+
 <script>
 (() => {
     'use strict';
@@ -224,34 +211,6 @@ window.addEventListener("pageshow", function () {
         text.textContent = "Login";
         loader.classList.add("d-none");
     }
-});
-</script>
-<jsp:include page="footer.jsp"/>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const successMsg = sessionStorage.getItem("successMsg");
-    if (!successMsg) return;
-
-    const popup = document.getElementById("successPopup");
-    const text = document.getElementById("successText");
-
-    text.textContent = successMsg;
-    popup.style.display = "block";
-
-    requestAnimationFrame(() => popup.classList.add("show"));
-
-    // Hide popup after 3 seconds
-    setTimeout(() => {
-        popup.classList.remove("show");
-
-        // Go to next page after animation
-        setTimeout(() => {
-            sessionStorage.removeItem("successMsg");
-            window.location.href = "index2.jsp"; // 🔁 change page here
-        }, 100);
-
-    }, 900);
 });
 </script>
 

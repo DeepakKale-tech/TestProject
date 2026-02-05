@@ -59,9 +59,8 @@ public class ShopRegister extends HttpServlet {
 		if(status > 0)
 		{
 			HttpSession session = request.getSession();
-			session.setAttribute("successMsg", "Registration successful! 🎉 Please login");
-			response.sendRedirect("adminLogin.jsp");
-			return;
+			response.sendRedirect("adminLogin.jsp?flash=Adminregister");
+			
 
 		}else
 		{

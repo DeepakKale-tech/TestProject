@@ -46,9 +46,8 @@ public class TherapistLoginServlet extends HttpServlet {
 			if (t != null && t.getPassword().equals(password)) {
 
 			    HttpSession session = request.getSession();
-			    session.setAttribute("successMsg", "Login successful!, Welcome Therapist");
-			    response.sendRedirect("therapistLogin.jsp");
-			    return;
+			    response.sendRedirect("index.jsp?flash=login");
+			    
 			} else {
 
 			    request.setAttribute("error", "Invalid username or password");
